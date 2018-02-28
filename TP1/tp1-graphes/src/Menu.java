@@ -7,7 +7,7 @@
  * Définition du menu principal du programme 
  **/
 
- import java.util.Scanner;
+import java.util.Scanner;
  
  
 public class Menu {
