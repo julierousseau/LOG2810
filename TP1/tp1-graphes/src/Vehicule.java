@@ -37,10 +37,18 @@ public abstract class Vehicule {
 	
 	/**
 	 * Méthode GetTempsRestant
-	 * @return obtient le temps restant selon la quantité d'essence en minutes
+	 * @return obtient le temps restant selon la quantité d'essence en heures
 	 */
 	public int GetTempsRestant() {
 		return (qteEssence - 12) / GetConsommation();
+	}
+	
+	/**
+	 * Méthode GetQuantitéEssence
+	 * @return obtient la quantité d'essence restante
+	 */
+	public int GetQuantiteEssence() {
+		return qteEssence;
 	}
 	
 	/**
@@ -50,4 +58,17 @@ public abstract class Vehicule {
 	public void SetQuantiteEssence(int nouvelleQteEssence) {
 		qteEssence = nouvelleQteEssence;
 	}
+	
+	/**
+	 * Méthode ConsommerEssence
+	 * @param temps: le temps de parcours
+	 * @return: faux s'il n'y a pas suffisament d'essence pour effectuer le trajet
+	 */
+	public boolean ConsommerEssence(int temps) {
+		if(GetTempsRestant() < temps)
+			return false;
+		SetQuantiteEssence(qteEssence - GetConsommation()*temps);
+		return true;
+	}
+	
 }
