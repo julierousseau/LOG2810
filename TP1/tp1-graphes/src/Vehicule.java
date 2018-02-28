@@ -40,7 +40,7 @@ public abstract class Vehicule {
 	 * @return obtient le temps restant selon la quantité d'essence en minutes
 	 */
 	public int GetTempsRestant() {
-		return qteEssence / GetConsommation();
+		return (qteEssence - 12) / GetConsommation();
 	}
 	
 	/**

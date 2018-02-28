@@ -10,6 +10,10 @@ public class Ville implements Affichage {
 	private int id;
 	private ArrayList<Route> routes;
 	private boolean stationService;
+	//Attributs nécessaire pour le plus court chemin
+	private int temps;
+	private boolean estVisitee;
+	private Ville precedente;
 	
 	public Ville(int id, boolean stationService) {
 		this.id = id;
@@ -75,4 +79,51 @@ public class Ville implements Affichage {
 		
 		return "carte";
 	}
+	
+	//Méthodes nécessaire pour le plus court chemin
+	/**
+	 * Méthode SetDistance
+	 * @param temps: le temps par rapport au point d'arrivé
+	 */
+	public void SetTemps(int temps) {
+		this.temps = temps;
+	}
+	
+	/**
+	 * Méthode GetDistance
+	 * @return: la distance par rapport au point d'arrivé
+	 */
+	public int GetTemps() {
+		return temps;
+	}
+	
+	/**
+	 * Méthode SetStatutVisitee
+	 * @param visitee: la valeur booléenne si le ville a été visité ou non
+	 */
+	public void SetStatutVisitee(boolean visitee) {
+		this.estVisitee = visitee;
+	}
+	/**
+	 * Méthode GetStatusVisite
+	 * return: l'information si la ville à été visité
+	 */
+	public boolean GetStatutVisitee() {
+		return estVisitee;
+	}
+	/**
+	 * Méthode SetPrecedente
+	 * @param precedente: la ville précédente dans le chemin
+	 */
+	public void SetPrecedente(Ville precedente) {
+		this.precedente = precedente;
+	}
+	/**
+	 * Méthode GetPrecedente
+	 * @return: la ville précédente dans le chemin
+	 */
+	public Ville GetPrecedente() {
+		return precedente;
+	}
 }
+
