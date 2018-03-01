@@ -11,10 +11,11 @@ import java.util.Scanner;
  
  
 public class Menu {
+	private Carte carte;
 	
 	// Constructeur
 	public Menu() {
-		
+		carte = null;
 	}
 	
 	
@@ -30,7 +31,7 @@ public class Menu {
 		// Gestion d'exceptions
 		
 		FabriqueCarte fabrique = new FabriqueCarte();
-		Carte carte = fabrique.CreerGraphe(nomFichier);
+		carte = fabrique.CreerGraphe(nomFichier);
 		carte.LireGraphe();
 	}
 	
@@ -38,7 +39,40 @@ public class Menu {
 	// Permet d'obtenir le plus court chemin à partir des
 	// différents paramètres demandés
 	public void PlusCourtChemin() {
+		if(carte != null) {
+		Vehicule vehicule = AfficherChoixVehicule();
 		
+		Ville villeA = AfficherSelectionVille("de depart: ");
+		Ville villeB = AfficherSelectionVille("d'arrivee: ");
+		
+		carte.PlusCourtChemin(vehicule, villeA, villeB);
+		}else {
+			System.out.println("Veuillez ajouter une carte.");
+		}
+	}
+	
+	/**
+	 * M�thode AfficherSelectionVille
+	 * @param fin: Fin de la question
+	 * @return la ville choisie
+	 */
+	private Ville AfficherSelectionVille(String fin) {
+		System.out.println( "Entrez le numero d'ID de la ville "+fin );
+		System.out.println();
+		Scanner s = new Scanner(System.in);
+		String choixEntre = s.nextLine();
+		int choix = Integer.parseInt("0" + choixEntre.replaceAll("\\D+",""));
+		
+		// Gérer les cas d'erreurs et exceptions (mauvais type)
+		// False - temporaire
+		return new Ville(choix, false);
+	}
+	
+	/**
+	 * M�thode AfficherChoixVehicule
+	 * @return le vehicule choisi
+	 */
+	private Vehicule AfficherChoixVehicule() {
 		System.out.println( "Quel est le type de vehicule utilise?" );
 		System.out.println();
 		System.out.println( "(1) Automobile" );
@@ -50,7 +84,8 @@ public class Menu {
 		System.out.println( "Votre choix: " );
 		
 		Scanner s = new Scanner(System.in);
-		int choix = s.nextInt();
+		String choixEntre = s.nextLine();
+		int choix = Integer.parseInt("0" + choixEntre.replaceAll("\\D+",""));
 		
 		// Au départ, on considère que l'essence est à 100% et on essaie avec CheapCar
 		Compagnie cheapCar = new CheapCar();
@@ -71,25 +106,10 @@ public class Menu {
 			default:
 				System.out.println("Erreur: choix invalide");
 				System.out.println();
-				// réafficher les choix
+				AfficherChoixVehicule();
 		}
 		
-		System.out.println( "Entrez le numero d'ID de la ville de depart: " );
-		System.out.println();
-		int idVilleA = s.nextInt();
-		// Gérer les cas d'erreurs et exceptions (mauvais type)
-		// False - temporaire
-		Ville villeA = new Ville(idVilleA, false);
-		
-		System.out.println( "Entrez le numero d'ID de la ville d'arrivee: " );
-		System.out.println();
-		int idVilleB = s.nextInt();
-		// Gérer les cas d'erreurs et exceptions (mauvais type)
-		// False - temporaire
-		Ville villeB = new Ville(idVilleB, false);
-		
-		Carte carte = new Carte();
-		carte.PlusCourtChemin(vehicule, villeA, villeB);
+		return vehicule;
 	}
 	
 	
