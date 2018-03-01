@@ -85,7 +85,7 @@ public class Ville implements Affichage {
 	 * Méthode SetDistance
 	 * @param temps: le temps par rapport au point d'arrivé
 	 */
-	public void SetTemps(int temps) {
+	public void SetTempsTotal(int temps) {
 		this.temps = temps;
 	}
 	
@@ -93,7 +93,7 @@ public class Ville implements Affichage {
 	 * Méthode GetDistance
 	 * @return: la distance par rapport au point d'arrivé
 	 */
-	public int GetTemps() {
+	public int GetTempsTotal() {
 		return temps;
 	}
 	
