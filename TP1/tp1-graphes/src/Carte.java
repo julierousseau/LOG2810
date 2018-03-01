@@ -57,41 +57,56 @@ public class Carte {
 		
 		// TODO: Gérer les chemins alternatifs pour l'essence
 		InitDistance();
-		depart.SetTemps(0);
-		Ville villeActuelle = depart;
-		while(villeActuelle != arrivee) {
-			Iterator<Route> itr = villeActuelle.GetRoutes().iterator();
-			while(itr.hasNext()) {
-				Route currentRoute = itr.next();
-				Ville villeSuivante = currentRoute.GetDestination();
-				int oldTemps = villeSuivante.GetTemps();
-				int newTemps = villeActuelle.GetTemps() + currentRoute.GetTemps();
-				if(newTemps < oldTemps && vehicule.GetTempsRestant() >= currentRoute.GetTemps()) {
-					villeSuivante.SetTemps(newTemps);
-					villeSuivante.SetPrecedente(villeActuelle);
-				}
-			}
-			villeActuelle.SetStatutVisitee(true);
-			villeActuelle = TrouverProchaineVille(arrivee);
-		}
-		if(arrivee.GetPrecedente() == null && vehicule.GetCompagnie().getClass().getName() == "CheapCar") {
+		plusCourtChemin = CalculerChemin(depart, arrivee);
+		if(plusCourtChemin.isEmpty() && vehicule.GetCompagnie() instanceof CheapCar) {
 			vehicule.SetCompagnie(new SuperCar());
 			PlusCourtChemin(vehicule, depart, arrivee);
 			return;
 		}
-		while(villeActuelle.GetPrecedente() != null) {
-			plusCourtChemin.add(0, villeActuelle);
-			villeActuelle = villeActuelle.GetPrecedente();
-		}
-		int tempsParcours = CalculerTemps(plusCourtChemin, vehicule);
 		
+		int tempsParcours = CalculerTemps(plusCourtChemin, vehicule);
 		if (tempsParcours == -1)
-			if(vehicule.GetCompagnie().getClass().getName() == "CheapCar") {
+			if(vehicule.GetCompagnie() instanceof CheapCar) {
 				vehicule.SetCompagnie(new SuperCar());
 				PlusCourtChemin(vehicule, depart, arrivee);
 				return;
 			}
-		AfficherChemin(tempsParcours, plusCourtChemin);
+		AfficherChemin(tempsParcours, plusCourtChemin, vehicule);
+	}
+	
+	/**
+	 * Méthode CalculerChemin
+	 * @param debut: ville d'origine
+	 * @param fin: ville d'arrivee
+	 * @return: la liste des villes du plus court chemin
+	 */
+	private ArrayList<Ville> CalculerChemin(Ville debut, Ville fin){
+		debut.SetTempsTotal(0);
+		Ville villeActuelle = debut;
+		while(villeActuelle != fin) {
+			Iterator<Route> itr = villeActuelle.GetRoutes().iterator();
+			while(itr.hasNext()) {
+				Route currentRoute = itr.next();
+				Ville villeSuivante = currentRoute.GetDestination();
+				int oldTemps = villeSuivante.GetTempsTotal();
+				int newTemps = villeActuelle.GetTempsTotal() + currentRoute.GetTemps();
+				if(newTemps < oldTemps) {
+					villeSuivante.SetTempsTotal(newTemps);
+					villeSuivante.SetPrecedente(villeActuelle);
+				}
+			}
+			villeActuelle.SetStatutVisitee(true);
+			villeActuelle = TrouverProchaineVille(fin);
+		}
+		
+		ArrayList<Ville> plusCourtChemin = new ArrayList<Ville>();
+		if(villeActuelle.GetPrecedente() != null) {
+			plusCourtChemin.add(0, villeActuelle);
+			while((villeActuelle = villeActuelle.GetPrecedente()) != null) {
+				plusCourtChemin.add(0, villeActuelle);
+			}
+		}
+		return plusCourtChemin;
 	}
 	
 	/**
@@ -99,12 +114,12 @@ public class Carte {
 	 * @param tempsParcours: le temps total du trajet
 	 * @param chemin: le trajet parcouru
 	 */
-	private void AfficherChemin(int tempsParcours, ArrayList<Ville> chemin) {
+	private void AfficherChemin(int tempsParcours, ArrayList<Ville> chemin, Vehicule vehicule) {
 		if(tempsParcours == -1) {
 		System.out.println("Impossible d'effectuer le braquage");
 		return;
 		}		
-		String chaine = "";
+		String chaine = "Véhicule de la compagnie " + vehicule.GetCompagnie().getClass().getName() + ". Chemin parcouru: ";
 		
 		for(int i = 0; i < chemin.size(); i++) {
 			chaine += chemin.get(i).AfficherChemin() + "->";
@@ -112,7 +127,7 @@ public class Carte {
 		
 		if(chaine.charAt(chaine.length() - 1) == '>')
 			chaine = chaine.substring(0, chaine.length() - 3);
-		chaine += "Durée du trajet: " + tempsParcours + "minutes";
+		chaine += " Durée du trajet: " + tempsParcours + " minutes. Essence restante: " + vehicule.GetQuantiteEssence() + "%.";
 		
 		System.out.println(chaine);
 	}
@@ -124,7 +139,7 @@ public class Carte {
 		Iterator<Ville> itr = villes.iterator();
 		while(itr.hasNext()) {
 			Ville ville =itr.next();
-			ville.SetTemps(Integer.MAX_VALUE);
+			ville.SetTempsTotal(Integer.MAX_VALUE);
 			ville.SetStatutVisitee(false);
 			ville.SetPrecedente(null);
 		}
@@ -140,7 +155,7 @@ public class Carte {
 		Iterator<Ville> itr = villes.iterator();
 		while(itr.hasNext()) {
 			Ville comp = itr.next();
-			if(!comp.GetStatutVisitee() && comp.GetTemps() < prochaine.GetTemps())
+			if(!comp.GetStatutVisitee() && comp.GetTempsTotal() < prochaine.GetTempsTotal())
 				prochaine = comp;
 		}
 		return prochaine;
@@ -152,6 +167,8 @@ public class Carte {
 	 * @return: le temps total si le trajet est possible
 	 */
 	private int CalculerTemps(ArrayList<Ville> villes, Vehicule vehicule) {
+		if(villes.isEmpty())
+			return -1;
 		int temps = 0;
 		for (int i = 0; i < villes.size()-1; i++) {
 			Ville villeCourante = villes.get(i);
