@@ -14,5 +14,6 @@ public class Main {
 		
 		Menu menuPrincipal = new Menu();
 		menuPrincipal.Afficher();
+		System.exit(0);
 	}
 }

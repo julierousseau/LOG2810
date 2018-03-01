@@ -32,7 +32,7 @@ public class Menu {
 		System.out.println( "Entrez le nom du fichier desire:" );
 		System.out.println();
 		
-		String nomFichier = s.next();
+		String nomFichier = s.nextLine();
 		
 		// Génère et affiche une nouvelle carte
 		FabriqueCarte fabrique = new FabriqueCarte();
@@ -75,7 +75,6 @@ public class Menu {
 			System.out.println();
 			AfficherSelectionVille(fin);
 		}
-		
 		return ville;
 	}
 	
@@ -119,7 +118,6 @@ public class Menu {
 				System.out.println();
 				AfficherChoixVehicule();
 		}
-		
 		return vehicule;
 	}
 	
@@ -127,10 +125,11 @@ public class Menu {
 	/**
 	 * M�thode Afficher
 	 */
-	public int Afficher() {
+	public void Afficher() {
 		
 		String choix = "abc";
-		while (choix != "c") {
+		Boolean aQuitte = false;
+		while (!aQuitte) {
 			
 			System.out.println( "Veuillez faire un choix parmi les options suivantes:" );
 			System.out.println();
@@ -143,7 +142,7 @@ public class Menu {
 			System.out.println( "Option souhaitee: " );
 			System.out.println();
 			
-			choix = s.next();
+			choix = s.nextLine();
 			
 			switch (choix) {
 				case "a":
@@ -156,12 +155,11 @@ public class Menu {
 					// Quitte le programme
 					System.out.println("Vous avez quitte le programme.");
 					System.out.println();
-					return 0;
+					aQuitte = true;
+					break;
 				default:
 					System.out.println("Erreur: choix invalide. SVP recommencer.");
 			}
 		}
-
-		return 0;
 	}		
 }
