@@ -124,7 +124,7 @@ public class Carte {
 	 * @param fin: ville d'arrivee
 	 * @return: la liste des villes du plus court chemin
 	 */
-	//private ArrayList
+	private ArrayList
 	
 	/**
 	 * M�thode AfficherChemin
