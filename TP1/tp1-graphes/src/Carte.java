@@ -1,3 +1,12 @@
+/**
+ * Classe Carte
+ *
+ * Samuel D'Amours-Fortier, Justine Lambert et Julie Rousseau
+ * LOG2810 : Structures discrÃ¨tes
+ *
+ * Permet de manipuler une carte et d'obtenir le plus court chemin
+ */
+
 import java.util.ArrayList;
 import java.util.Iterator;
 
@@ -9,15 +18,15 @@ public class Carte {
 	}
 	
 	/**
-	 * Méthode AjouterVille
-	 * @param ville: Ville à ajouter
+	 * Mï¿½thode AjouterVille
+	 * @param ville: Ville ï¿½ ajouter
 	 */
 	public void AjouterVille(Ville ville) {
 		villes.add(ville);
 	}
 	
 	/**
-	 * Méthode GetVilleById
+	 * Mï¿½thode GetVilleById
 	 * @param id: identifiant de la ville
 	 * @return la ville si elle existe
 	 */
@@ -35,7 +44,7 @@ public class Carte {
 	}
 	
 	/**
-	 * Méthode LireGraphe
+	 * Mï¿½thode LireGraphe
 	 */
 	public void LireGraphe() {
 		String chaine = "";
@@ -47,15 +56,15 @@ public class Carte {
 	}
 	
 	/**
-	 * Méthode PlusCourtChemin
-	 * @param vehicule: Véhicule à utiliser
-	 * @param depart: Ville de départ
-	 * @param arrivee: Ville d'arrivée
+	 * Mï¿½thode PlusCourtChemin
+	 * @param vehicule: Vï¿½hicule ï¿½ utiliser
+	 * @param depart: Ville de dï¿½part
+	 * @param arrivee: Ville d'arrivï¿½e
 	 */
 	public void PlusCourtChemin(Vehicule vehicule,Ville depart, Ville arrivee) {
 		ArrayList<Ville> plusCourtChemin = new ArrayList<Ville>();
 		
-		// TODO: Gérer les chemins alternatifs pour l'essence
+		// TODO: Gï¿½rer les chemins alternatifs pour l'essence
 		InitDistance();
 		plusCourtChemin = CalculerChemin(depart, arrivee);
 		if(plusCourtChemin.isEmpty() && vehicule.GetCompagnie() instanceof CheapCar) {
@@ -110,7 +119,7 @@ public class Carte {
 	}
 	
 	/**
-	 * Méthode AfficherChemin
+	 * Mï¿½thode AfficherChemin
 	 * @param tempsParcours: le temps total du trajet
 	 * @param chemin: le trajet parcouru
 	 */
@@ -127,13 +136,14 @@ public class Carte {
 		
 		if(chaine.charAt(chaine.length() - 1) == '>')
 			chaine = chaine.substring(0, chaine.length() - 3);
+
 		chaine += " Durée du trajet: " + tempsParcours + " minutes. Essence restante: " + vehicule.GetQuantiteEssence() + "%.";
 		
 		System.out.println(chaine);
 	}
 	
 	/**
-	 * Méthode InitDistance
+	 * Mï¿½thode InitDistance
 	 */
 	private void InitDistance() {
 		Iterator<Ville> itr = villes.iterator();
@@ -146,9 +156,9 @@ public class Carte {
 	}
 	
 	/**
-	 * Méthode TrouverProchaineVille
+	 * Mï¿½thode TrouverProchaineVille
 	 * @param finale: Permet de comparer et de savoir si un trajet est possible
-	 * @return : la ville non visitée ayant la plus petite distance.
+	 * @return : la ville non visitï¿½e ayant la plus petite distance.
 	 */
 	private Ville TrouverProchaineVille(Ville finale) {
 		Ville prochaine = finale;
@@ -162,8 +172,8 @@ public class Carte {
 	}
 
 	/**
-	 * Méthode CalculerTemps
-	 * @param chemin: le chemin à parcourir
+	 * Mï¿½thode CalculerTemps
+	 * @param chemin: le chemin ï¿½ parcourir
 	 * @return: le temps total si le trajet est possible
 	 */
 	private int CalculerTemps(ArrayList<Ville> villes, Vehicule vehicule) {

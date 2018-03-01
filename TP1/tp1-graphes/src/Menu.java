@@ -5,39 +5,45 @@
  * LOG2810 : Structures discrètes
  * 
  * Définition du menu principal du programme 
+ * 
  **/
 
 import java.util.Scanner;
  
  
 public class Menu {
+	
 	private Carte carte;
 	private Scanner s = new Scanner(System.in);
 	
-	// Constructeur
+	/**
+	 * Constructeur
+	 */
 	public Menu() {
 		carte = null;
 	}
 	
 	
-	// Permet de créer un nouveau graphe ou mettre à jour
-	// un graphe existant
+	/**
+	 * M�thode MettreAJour
+	 */
 	public void MettreAJour() {
 		
 		System.out.println( "Entrez le nom du fichier desire:" );
 		System.out.println();
 		
 		String nomFichier = s.next();
-		// Gestion d'exceptions
 		
+		// Génère et affiche une nouvelle carte
 		FabriqueCarte fabrique = new FabriqueCarte();
 		carte = fabrique.CreerGraphe(nomFichier);
 		carte.LireGraphe();
 	}
 	
 	
-	// Permet d'obtenir le plus court chemin à partir des
-	// différents paramètres demandés
+	/**
+	 * M�thode PlusCourtChemin
+	 */
 	public void PlusCourtChemin() {
 		if(carte != null) {
 		Vehicule vehicule = AfficherChoixVehicule();
@@ -46,10 +52,11 @@ public class Menu {
 		Ville villeB = AfficherSelectionVille("d'arrivee: ");
 		
 		carte.PlusCourtChemin(vehicule, villeA, villeB);
-		}else {
+		} else {
 			System.out.println("Veuillez ajouter une carte.");
 		}
 	}
+	
 	
 	/**
 	 * M�thode AfficherSelectionVille
@@ -69,10 +76,9 @@ public class Menu {
 			AfficherSelectionVille(fin);
 		}
 		
-		// Gérer les cas d'erreurs et exceptions (mauvais type)
-		// False - temporaire
 		return ville;
 	}
+	
 	
 	/**
 	 * M�thode AfficherChoixVehicule
@@ -95,7 +101,7 @@ public class Menu {
 		// Au départ, on considère que l'essence est à 100% et on essaie avec CheapCar
 		Compagnie cheapCar = new CheapCar();
 	
-		// Je mets automobile par défaut
+		// Automobile est par défaut
 		Vehicule vehicule = new Automobile(cheapCar, 100);
 		
 		switch (choix) {
@@ -117,9 +123,10 @@ public class Menu {
 		return vehicule;
 	}
 	
-	
-	// Affiche le menu dans la console et prend les 
-	// entrées de l'utilisateur
+
+	/**
+	 * M�thode Afficher
+	 */
 	public int Afficher() {
 		
 		String choix = "abc";
@@ -146,6 +153,7 @@ public class Menu {
 					PlusCourtChemin();
 					break;
 				case "c":
+					// Quitte le programme
 					System.out.println("Vous avez quitte le programme.");
 					System.out.println();
 					return 0;
@@ -155,6 +163,5 @@ public class Menu {
 		}
 
 		return 0;
-	}
-		
+	}		
 }

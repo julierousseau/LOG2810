@@ -1,9 +1,13 @@
 /**
  * Classe Route
  * 
- * Représente une route sur une carte
+ * Samuel D'Amours-Fortier, Justine Lambert et Julie Rousseau
+ * LOG2810 : Structures discrÃ¨tes
+ * 
+ * Reprï¿½sente une route sur une carte
  *
  */
+
 public class Route implements Affichage {
 	private Ville destination;
 	private int tempsDeplacement;
@@ -14,7 +18,7 @@ public class Route implements Affichage {
 	}
 	
 	/**
-	 * Méthode GetDestination
+	 * Mï¿½thode GetDestination
 	 * @return: la destination de la route
 	 */
 	public Ville GetDestination() {
@@ -22,24 +26,24 @@ public class Route implements Affichage {
 	}
 	
 	/**
-	 * Méthode GetTemps
-	 * @return: le temps pour se rendre à destination par la route
+	 * Mï¿½thode GetTemps
+	 * @return: le temps pour se rendre ï¿½ destination par la route
 	 */
 	public int GetTemps() {
 		return tempsDeplacement;
 	}
 	
 	/**
-	 * Méthode AfficherChemin
-	 * @return: une chaine de caractère du segment du chemin
+	 * Mï¿½thode AfficherChemin
+	 * @return: une chaine de caractï¿½re du segment du chemin
 	 */
 	public String AfficherChemin() {
 		return destination.AfficherChemin();
 	}
 	
 	/**
-	 * Méthode AfficherSurCarte
-	 * @return: une chaine de caractère représentant les informations de la route
+	 * Mï¿½thode AfficherSurCarte
+	 * @return: une chaine de caractï¿½re reprï¿½sentant les informations de la route
 	 */
 	public String AfficherSurCarte() {
 		return "(" + destination.GetId() + "," + tempsDeplacement + ")";

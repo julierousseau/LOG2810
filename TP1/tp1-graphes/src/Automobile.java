@@ -1,8 +1,12 @@
 /**
  * Classe Automobile
  *
- * Permet de définir les propriétés d'un véhicule
+ * Samuel D'Amours-Fortier, Justine Lambert et Julie Rousseau
+ * LOG2810 : Structures discrÃ¨tes
+ *
+ * Permet de dï¿½finir les propriï¿½tï¿½s d'un vï¿½hicule
  */
+
 public class Automobile extends Vehicule {
 
 	public Automobile(Compagnie cie, int qte) {
