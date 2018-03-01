@@ -14,12 +14,19 @@ import java.io.IOException;
 
  public class FabriqueCarte {
 	 
-	 // Constructeur
+	/**
+	* Constructeur
+	*/
 	 public FabriqueCarte() {
 			
    	}
 	 
-	 // Lit le fichier afin de générer le graphe
+
+	/**
+	* M�thode CreerGraphe
+	* @param nom du fichier
+	* @return la carte générée
+	*/
 	 public Carte CreerGraphe(String nomFichier) {
 		 
 		 Carte carte = new Carte();
@@ -37,6 +44,7 @@ import java.io.IOException;
 				String[] tmp = str.split(",");
 				idVille = Integer.parseInt(tmp[0]);
 				stationService = Integer.parseInt(tmp[1]);	
+				
 				// Conversion int à boolean
 				aStationService = (stationService != 0);
 				

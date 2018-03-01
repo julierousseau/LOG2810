@@ -1,22 +1,26 @@
 /**
  * Classe abstraite Compagnie
  * 
- * Permet de définir les propriétés d'une compagnie du système.
+ * Samuel D'Amours-Fortier, Justine Lambert et Julie Rousseau
+ * LOG2810 : Structures discrÃ¨tes
+ * 
+ * Permet de dï¿½finir les propriï¿½tï¿½s d'une compagnie du systï¿½me.
  * 
  **/
+
 public abstract class Compagnie {
 	/**
-	 * Méthode GetConsommationAutomobile 
+	 * Mï¿½thode GetConsommationAutomobile 
 	 * @return: retourne la valeur sur 100 de la consommation d'une automobile
 	 **/
 	abstract int GetConsommationAutomobile();
 	/**
-	 * Méthode GetConsommationPickup 
+	 * Mï¿½thode GetConsommationPickup 
 	 * @return: retourne la valeur sur 100 de la consommation d'un pick-up
 	 **/
 	abstract int GetConsommationPickup();
 	/**
-	 * Méthode GetConsommationFourgon 
+	 * Mï¿½thode GetConsommationFourgon 
 	 * @return: retourne la valeur sur 100 de la consommation d'un fourgon
 	 **/
 	abstract int GetConsommationFourgon();

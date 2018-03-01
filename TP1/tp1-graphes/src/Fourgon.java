@@ -1,9 +1,13 @@
 /**
  * Classe Fourgon
  * 
- * Permet de définir les propriétés d'un fourgon
+ * Samuel D'Amours-Fortier, Justine Lambert et Julie Rousseau
+ * LOG2810 : Structures discrÃ¨tes
+ * 
+ * Permet de dï¿½finir les propriï¿½tï¿½s d'un fourgon
  *
  */
+
 public class Fourgon extends Vehicule {
 
 	public Fourgon(Compagnie cie, int qte) {

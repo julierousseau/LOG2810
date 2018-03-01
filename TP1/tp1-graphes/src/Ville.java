@@ -3,14 +3,18 @@ import java.util.ArrayList;
 /**
  * Classe Ville
  * 
- * Représente une ville sur une carte
+ * Samuel D'Amours-Fortier, Justine Lambert et Julie Rousseau
+ * LOG2810 : Structures discrÃ¨tes
+ * 
+ * Reprï¿½sente une ville sur une carte
  *
  */
+
 public class Ville implements Affichage {
 	private int id;
 	private ArrayList<Route> routes;
 	private boolean stationService;
-	//Attributs nécessaire pour le plus court chemin
+	//Attributs nï¿½cessaire pour le plus court chemin
 	private int temps;
 	private boolean estVisitee;
 	private Ville precedente;
@@ -22,7 +26,7 @@ public class Ville implements Affichage {
 	}
 	
 	/**
-	 * Méthode GetId
+	 * Mï¿½thode GetId
 	 * @return: identifiant de la ville
 	 */
 	public int GetId() {
@@ -30,40 +34,40 @@ public class Ville implements Affichage {
 	}
 	
 	/**
-	 * Méthode EstStationService
-	 * @return: si la ville possède une station service
+	 * Mï¿½thode EstStationService
+	 * @return: si la ville possï¿½de une station service
 	 */
 	public boolean EstStationService() {
 		return stationService;
 	}
 	
 	/**
-	 * Méthode GetRoutes
-	 * @return: Le tableau de toutes les routes liées à la ville
+	 * Mï¿½thode GetRoutes
+	 * @return: Le tableau de toutes les routes liï¿½es ï¿½ la ville
 	 * */
 	public ArrayList<Route> GetRoutes() {
 		return routes;
 	}
 	
 	/**
-	 * Méthode AjouterRoute
-	 * @param route: la route à ajouter
+	 * Mï¿½thode AjouterRoute
+	 * @param route: la route ï¿½ ajouter
 	 */
 	public void AjouterRoute(Route route) {
 		routes.add(route);
 	}
 	
 	/**
-	 * Méthode AfficherChemin
-	 * @return: une chaine de caractères avec tous les chemins 
+	 * Mï¿½thode AfficherChemin
+	 * @return: une chaine de caractï¿½res avec tous les chemins 
 	 */
 	public String AfficherChemin() {
 		return " " + id + " ";
 	}
 	
 	/**
-	 * Méthode AfficherSurCarte
-	 * @return: une chaine de caractères avec toutes les villes adjacentes et les routes
+	 * Mï¿½thode AfficherSurCarte
+	 * @return: une chaine de caractï¿½res avec toutes les villes adjacentes et les routes
 	 */
 	public String AfficherSurCarte() {
 		String carte = "(" + id + "(";
@@ -80,47 +84,47 @@ public class Ville implements Affichage {
 		return carte;
 	}
 	
-	//Méthodes nécessaire pour le plus court chemin
+	//Mï¿½thodes nï¿½cessaire pour le plus court chemin
 	/**
-	 * Méthode SetDistance
-	 * @param temps: le temps par rapport au point d'arrivé
+	 * Mï¿½thode SetDistance
+	 * @param temps: le temps par rapport au point d'arrivï¿½
 	 */
-	public void SetTemps(int temps) {
+	public void SetTempsTotal(int temps) {
 		this.temps = temps;
 	}
 	
 	/**
-	 * Méthode GetDistance
-	 * @return: la distance par rapport au point d'arrivé
+	 * Mï¿½thode GetDistance
+	 * @return: la distance par rapport au point d'arrivï¿½
 	 */
-	public int GetTemps() {
+	public int GetTempsTotal() {
 		return temps;
 	}
 	
 	/**
-	 * Méthode SetStatutVisitee
-	 * @param visitee: la valeur booléenne si le ville a été visité ou non
+	 * Mï¿½thode SetStatutVisitee
+	 * @param visitee: la valeur boolï¿½enne si le ville a ï¿½tï¿½ visitï¿½ ou non
 	 */
 	public void SetStatutVisitee(boolean visitee) {
 		this.estVisitee = visitee;
 	}
 	/**
-	 * Méthode GetStatusVisite
-	 * return: l'information si la ville à été visité
+	 * Mï¿½thode GetStatusVisite
+	 * return: l'information si la ville ï¿½ ï¿½tï¿½ visitï¿½
 	 */
 	public boolean GetStatutVisitee() {
 		return estVisitee;
 	}
 	/**
-	 * Méthode SetPrecedente
-	 * @param precedente: la ville précédente dans le chemin
+	 * Mï¿½thode SetPrecedente
+	 * @param precedente: la ville prï¿½cï¿½dente dans le chemin
 	 */
 	public void SetPrecedente(Ville precedente) {
 		this.precedente = precedente;
 	}
 	/**
-	 * Méthode GetPrecedente
-	 * @return: la ville précédente dans le chemin
+	 * Mï¿½thode GetPrecedente
+	 * @return: la ville prï¿½cï¿½dente dans le chemin
 	 */
 	public Ville GetPrecedente() {
 		return precedente;

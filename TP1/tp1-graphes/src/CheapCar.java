@@ -1,9 +1,13 @@
 /**
  * Classe CheapCar
  * 
- * Permet de définir les propriétés de la compagnie CheapCar
+ * Samuel D'Amours-Fortier, Justine Lambert et Julie Rousseau
+ * LOG2810 : Structures discrÃ¨tes
+ * 
+ * Permet de dï¿½finir les propriï¿½tï¿½s de la compagnie CheapCar
  * 
  **/
+
 public class CheapCar extends Compagnie {
 
 	@Override
