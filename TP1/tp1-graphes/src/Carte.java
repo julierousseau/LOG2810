@@ -91,25 +91,31 @@ public class Carte {
 				PlusCourtChemin(vehicule, depart, arrivee);
 				return;
 			}
-			else {
-				System.out.println("Impossible d'effectuer le braquage");
-				return;
-			}
-				
-		
-		// Affichage du plus court chemin
+		AfficherChemin(tempsParcours, plusCourtChemin);
+	}
+	
+	/**
+	 * Méthode AfficherChemin
+	 * @param tempsParcours: le temps total du trajet
+	 * @param chemin: le trajet parcouru
+	 */
+	private void AfficherChemin(int tempsParcours, ArrayList<Ville> chemin) {
+		if(tempsParcours == -1) {
+		System.out.println("Impossible d'effectuer le braquage");
+		return;
+		}		
 		String chaine = "";
 		
-		for(int i = 0; i < plusCourtChemin.size(); i++) {
-			chaine += plusCourtChemin.get(i).AfficherChemin() + "->";
+		for(int i = 0; i < chemin.size(); i++) {
+			chaine += chemin.get(i).AfficherChemin() + "->";
 		}
 		
 		if(chaine.charAt(chaine.length() - 1) == '>')
 			chaine = chaine.substring(0, chaine.length() - 3);
+		chaine += "Durée du trajet: " + tempsParcours + "minutes";
 		
 		System.out.println(chaine);
 	}
-	
 	
 	/**
 	 * Méthode InitDistance
@@ -147,7 +153,7 @@ public class Carte {
 	 */
 	private int CalculerTemps(ArrayList<Ville> villes, Vehicule vehicule) {
 		int temps = 0;
-		for (int i = 0; i < villes.size(); i++) {
+		for (int i = 0; i < villes.size()-1; i++) {
 			Ville villeCourante = villes.get(i);
 			Iterator<Route> itrr = villeCourante.GetRoutes().iterator();
 			Route routeCourante = itrr.next();				
