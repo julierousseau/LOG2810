@@ -65,6 +65,8 @@ import java.io.IOException;
 				
 				Route route = new Route(carte.GetVilleById(idVilleB), tempsParcours);
 				carte.GetVilleById(idVilleA).AjouterRoute(route);
+				route = new Route(carte.GetVilleById(idVilleA), tempsParcours);
+				carte.GetVilleById(idVilleB).AjouterRoute(route);
 			}
 			
 			// Réussite de la lecture
