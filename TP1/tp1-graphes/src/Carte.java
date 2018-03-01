@@ -49,7 +49,7 @@ public class Carte {
 	public void LireGraphe() {
 		String chaine = "";
 		for(int i = 0; i < villes.size();i++) {
-			chaine += villes.get(i).AfficherSurCarte() + ",";			
+			chaine += villes.get(i).AfficherSurCarte() + ",\n";			
 		}
 		
 		if(chaine.charAt(chaine.length() - 1) == ',')
