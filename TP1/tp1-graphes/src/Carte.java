@@ -88,15 +88,18 @@ public class Carte {
 	 * @param fin: ville d'arrivee
 	 * @return: la liste des villes du plus court chemin
 	 */
-	private ArrayList<Ville> CalculerChemin(Ville debut, Ville fin){
+	private ArrayList<Ville> CalculerChemin(Ville debut, Ville fin, Vehicule vehicule){
 		debut.SetTempsTotal(0);
 		Ville villeActuelle = debut;
 		while(villeActuelle != fin) {
+			int tempsTotal = CalculerTemps(ConstruireChemin(villeActuelle), vehicule);
+			if(villeActuelle.EstStationService())
+				vehicule.SetQuantiteEssence(100);
 			for(Route currentRoute : villeActuelle.GetRoutes()) {
 				Ville villeSuivante = currentRoute.GetDestination();
 				int oldTemps = villeSuivante.GetTempsTotal();
 				int newTemps = villeActuelle.GetTempsTotal() + currentRoute.GetTemps();
-				if(newTemps < oldTemps) {
+				if(newTemps < oldTemps && vehicule.GetTempsRestant() < currentRoute.GetTemps()) {
 					villeSuivante.SetTempsTotal(newTemps);
 					villeSuivante.SetPrecedente(villeActuelle);
 				}
@@ -105,23 +108,45 @@ public class Carte {
 			villeActuelle = TrouverProchaineVille(fin);
 		}
 		
-		ArrayList<Ville> plusCourtChemin = new ArrayList<Ville>();
-		if(villeActuelle.GetPrecedente() != null) {
-			plusCourtChemin.add(0, villeActuelle);
-			while((villeActuelle = villeActuelle.GetPrecedente()) != null) {
-				plusCourtChemin.add(0, villeActuelle);
+		ArrayList<Ville> plusCourtChemin = ConstruireChemin(villeActuelle);
+		return plusCourtChemin;
+	}
+
+	/**
+	 * Méthode ConstruireChemin
+	 * @param ville: ville vers laquelle on veut construire le chemin
+	 * @return: la liste des villes du chemin
+	 */
+	private ArrayList<Ville> ConstruireChemin(Ville ville) {
+		ArrayList<Ville> chemin = new ArrayList<Ville>();
+		if(ville.GetPrecedente() != null) {
+			chemin.add(0, ville);
+			while((ville = ville.GetPrecedente()) != null) {
+				chemin.add(0, ville);
 			}
 		}
-		return plusCourtChemin;
+		return chemin;
 	}
 	
 	/**
-	 * Méthode CheminAlternatif
-	 * @param debut: ville d'origine
-	 * @param fin: ville d'arrivee
-	 * @return: la liste des villes du plus court chemin
+	 * Méthode CalculerEssence
+	 * @param vehicule: vehicule utilise
+	 * @param ville: ville pour laquelle on veut la consommation
 	 */
-	private ArrayList
+	private void CalculerEssence(Vehicule vehicule, ArrayList<Ville> villes) {
+		for (int i = 0; i < villes.size()-1; i++) {
+			Ville villeCourante = villes.get(i);
+			Iterator<Route> itrr = villeCourante.GetRoutes().iterator();
+			Route routeCourante = itrr.next();				
+			while(routeCourante.GetDestination() != villes.get(i+1))
+				routeCourante = itrr.next();
+			if(villeCourante.EstStationService() && i != 0) {
+				temps += 15;
+				vehicule.SetQuantiteEssence(100);
+			}
+			if(!vehicule.ConsommerEssence(routeCourante.GetTemps()))
+				return -1;
+	}
 	
 	/**
 	 * Mï¿½thode AfficherChemin
@@ -180,6 +205,7 @@ public class Carte {
 	 * @return: le temps total si le trajet est possible
 	 */
 	private int CalculerTemps(ArrayList<Ville> villes, Vehicule vehicule) {
+		vehicule.SetQuantiteEssence(100);
 		if(villes.isEmpty())
 			return -1;
 		int temps = 0;

@@ -18,6 +18,7 @@ public class Ville implements Affichage {
 	private int temps;
 	private boolean estVisitee;
 	private Ville precedente;
+	//private int 
 	
 	public Ville(int id, boolean stationService) {
 		this.id = id;
