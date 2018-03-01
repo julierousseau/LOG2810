@@ -37,7 +37,9 @@ public class Menu {
 		// Génère et affiche une nouvelle carte
 		FabriqueCarte fabrique = new FabriqueCarte();
 		carte = fabrique.CreerGraphe(nomFichier);
-		carte.LireGraphe();
+		if(carte != null) {
+			carte.LireGraphe();
+		}
 	}
 	
 	

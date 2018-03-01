@@ -13,14 +13,6 @@ import java.io.IOException;
 
 
  public class FabriqueCarte {
-	 
-	/**
-	* Constructeur
-	*/
-	 public FabriqueCarte() {
-			
-   	}
-	 
 
 	/**
 	* M�thode CreerGraphe
@@ -78,6 +70,7 @@ import java.io.IOException;
 			// Échec de la lecture
 			System.out.println("Erreur: le fichier n'a pas été trouvé.");
 			System.out.println();
+			carte = null;
 		}
 
 		 return carte;
