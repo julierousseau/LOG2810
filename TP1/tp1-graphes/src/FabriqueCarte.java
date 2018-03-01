@@ -44,18 +44,19 @@ import java.io.IOException;
 			}
 			
 			// Lit la liste des arcs
-			int sommet1;
-			int sommet2;
+			int idVilleA;
+			int idVilleB;
 			int tempsParcours;
 			while ((str = lecture.readLine()) != null) {
 				
 				// Conversion vers int
 				String[] tmp = str.split(",");
-				sommet1 = Integer.parseInt(tmp[0]);
-				sommet2 = Integer.parseInt(tmp[1]);
+				idVilleA = Integer.parseInt(tmp[0]);
+				idVilleB = Integer.parseInt(tmp[1]);
 				tempsParcours = Integer.parseInt(tmp[2]);
 				
-				
+				Route route = new Route(carte.GetVilleById(idVilleB), tempsParcours);
+				carte.GetVilleById(idVilleA).AjouterRoute(route);
 			}
 			
 			// Réussite de la lecture
