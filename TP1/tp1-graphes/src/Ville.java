@@ -77,7 +77,7 @@ public class Ville implements Affichage {
 		
 		carte += "))";
 		
-		return "carte";
+		return carte;
 	}
 	
 	//Méthodes nécessaire pour le plus court chemin

@@ -43,7 +43,7 @@ public class Carte {
 			chaine += villes.get(i).AfficherSurCarte();			
 		}
 		
-		System.out.print(chaine);
+		System.out.println(chaine);
 	}
 	
 	/**
@@ -92,7 +92,7 @@ public class Carte {
 				return;
 			}
 			else {
-				System.out.print("Impossible d'effectuer le braquage");
+				System.out.println("Impossible d'effectuer le braquage");
 				return;
 			}
 				
@@ -107,7 +107,7 @@ public class Carte {
 		if(chaine.charAt(chaine.length() - 1) == '>')
 			chaine = chaine.substring(0, chaine.length() - 3);
 		
-		System.out.print(chaine);
+		System.out.println(chaine);
 	}
 	
 	
