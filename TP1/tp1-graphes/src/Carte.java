@@ -140,7 +140,7 @@ public class Carte {
 		System.out.println("Impossible d'effectuer le braquage");
 		return;
 		}		
-		String chaine = "Véhicule de la compagnie " + vehicule.GetCompagnie().getClass().getName() + ". Chemin parcouru: ";
+		String chaine = "Véhicule de la compagnie " + vehicule.GetCompagnie().getClass().getName() + ".\nChemin parcouru: ";
 		
 		for(int i = 0; i < chemin.size(); i++) {
 			chaine += chemin.get(i).AfficherChemin() + "->";
@@ -149,7 +149,7 @@ public class Carte {
 		if(chaine != "" && chaine.charAt(chaine.length() - 1) == '>')
 			chaine = chaine.substring(0, chaine.length() - 3);
 
-		chaine += " Durée du trajet: " + tempsParcours + " minutes. Essence restante: " + vehicule.GetQuantiteEssence() + "%.";
+		chaine += " \nDurée du trajet: " + tempsParcours + " minutes. \nEssence restante: " + vehicule.GetQuantiteEssence() + "%.";
 		
 		System.out.println(chaine);
 	}
