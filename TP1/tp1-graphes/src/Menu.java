@@ -67,7 +67,7 @@ public class Menu {
 		if(ville == null) {
 			System.out.println("Erreur: choix invalide");
 			System.out.println();
-			AfficherSelectionVille(fin);
+			ville = AfficherSelectionVille(fin);
 		}
 		
 		// Gérer les cas d'erreurs et exceptions (mauvais type)

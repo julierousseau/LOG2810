@@ -40,8 +40,11 @@ public class Carte {
 	public void LireGraphe() {
 		String chaine = "";
 		for(int i = 0; i < villes.size();i++) {
-			chaine += villes.get(i).AfficherSurCarte();			
+			chaine += villes.get(i).AfficherSurCarte() + ",";			
 		}
+		
+		if(chaine.charAt(chaine.length() - 1) == ',')
+			chaine = chaine.substring(0, chaine.length() - 2);
 		
 		System.out.println(chaine);
 	}
@@ -104,7 +107,7 @@ public class Carte {
 			chaine += plusCourtChemin.get(i).AfficherChemin() + "->";
 		}
 		
-		if(chaine.charAt(chaine.length() - 1) == '>')
+		if(chaine != "" && chaine.charAt(chaine.length() - 1) == '>')
 			chaine = chaine.substring(0, chaine.length() - 3);
 		
 		System.out.println(chaine);
