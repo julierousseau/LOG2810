@@ -68,7 +68,7 @@ public class Carte {
 		ArrayList<Ville> plusCourtChemin = new ArrayList<Ville>();
 		plusCourtChemin = CalculerChemin(depart, arrivee, vehicule);
 		if(plusCourtChemin.isEmpty() && vehicule.GetCompagnie() instanceof CheapCar) {
-			plusCourtChemin = CheminEconomique(depart, arrivee, vehicule);
+			//plusCourtChemin = CheminEconomique(depart, arrivee, vehicule);
 			if(plusCourtChemin.isEmpty()) {
 				vehicule.SetCompagnie(new SuperCar());
 				plusCourtChemin = CalculerChemin(depart, arrivee, vehicule);
@@ -93,19 +93,31 @@ public class Carte {
 			CalculerEssence(ConstruireChemin(villeActuelle), vehicule);
 			if(villeActuelle.EstStationService())
 				vehicule.SetQuantiteEssence(100);
+			boolean panneSeche = true;
 			for(Route currentRoute : villeActuelle.GetRoutes()) {
 				Ville villeSuivante = currentRoute.GetDestination();
 				if(!villeSuivante.GetStatutVisitee()) {
 					int oldTemps = villeSuivante.GetTempsTotal();
 					int newTemps = villeActuelle.GetTempsTotal() + currentRoute.GetTemps();
-					if(newTemps < oldTemps && vehicule.GetTempsRestant() > currentRoute.GetTemps()) {
-						villeSuivante.SetTempsTotal(newTemps);
-						villeSuivante.SetPrecedente(villeActuelle);
+					boolean aSuffisammentEssence = vehicule.GetTempsRestant() > currentRoute.GetTemps();
+					if(aSuffisammentEssence) {
+						panneSeche = false;
+						if(newTemps < oldTemps && aSuffisammentEssence) {
+							villeSuivante.SetTempsTotal(newTemps);
+							villeSuivante.SetPrecedente(villeActuelle);
+						}
 					}
 				}
 			}
-			villeActuelle.SetStatutVisitee(true);
-			villeActuelle = TrouverProchaineVille(fin);
+			if(!panneSeche) {
+				villeActuelle.SetStatutVisitee(true);
+				villeActuelle = TrouverProchaineVille(fin);
+			}
+			else if(!villeActuelle.GetTestEssence()) {
+				villeActuelle.SetTempsTotal(Integer.MAX_VALUE);
+				villeActuelle.SetPrecedente(null);
+				villeActuelle.SetTestEssence();
+			}
 		}
 		
 		return ConstruireChemin(villeActuelle);
