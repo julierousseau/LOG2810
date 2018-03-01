@@ -12,6 +12,7 @@ import java.util.Scanner;
  
 public class Menu {
 	private Carte carte;
+	private Scanner s = new Scanner(System.in);
 	
 	// Constructeur
 	public Menu() {
@@ -26,7 +27,6 @@ public class Menu {
 		System.out.println( "Entrez le nom du fichier desire:" );
 		System.out.println();
 		
-		Scanner s = new Scanner(System.in);
 		String nomFichier = s.next();
 		// Gestion d'exceptions
 		
@@ -52,14 +52,13 @@ public class Menu {
 	}
 	
 	/**
-	 * Méthode AfficherSelectionVille
+	 * Mï¿½thode AfficherSelectionVille
 	 * @param fin: Fin de la question
 	 * @return la ville choisie
 	 */
 	private Ville AfficherSelectionVille(String fin) {
 		System.out.println( "Entrez le numero d'ID de la ville "+fin );
 		System.out.println();
-		Scanner s = new Scanner(System.in);
 		String choixEntre = s.nextLine();
 		int choix = Integer.parseInt("0" + choixEntre.replaceAll("\\D+",""));
 		Ville ville = carte.GetVilleById(choix);
@@ -76,7 +75,7 @@ public class Menu {
 	}
 	
 	/**
-	 * Méthode AfficherChoixVehicule
+	 * Mï¿½thode AfficherChoixVehicule
 	 * @return le vehicule choisi
 	 */
 	private Vehicule AfficherChoixVehicule() {
@@ -90,7 +89,6 @@ public class Menu {
 		System.out.println();
 		System.out.println( "Votre choix: " );
 		
-		Scanner s = new Scanner(System.in);
 		String choixEntre = s.nextLine();
 		int choix = Integer.parseInt("0" + choixEntre.replaceAll("\\D+",""));
 		
@@ -138,7 +136,6 @@ public class Menu {
 			System.out.println( "Option souhaitee: " );
 			System.out.println();
 			
-			Scanner s = new Scanner(System.in);
 			choix = s.next();
 			
 			switch (choix) {
