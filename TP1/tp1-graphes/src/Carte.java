@@ -17,6 +17,24 @@ public class Carte {
 	}
 	
 	/**
+	 * Méthode GetVilleById
+	 * @param id: identifiant de la ville
+	 * @return la ville si elle existe
+	 */
+	public Ville GetVilleById(int id) {
+		Ville ville = null;
+		Ville villeCourante;
+		
+		for(int i = 0; i < villes.size(); i++) {
+			villeCourante = villes.get(i);
+			if(villeCourante.GetId() == id)
+				ville = villeCourante;
+		}
+		
+		return ville;
+	}
+	
+	/**
 	 * Méthode LireGraphe
 	 */
 	public void LireGraphe() {

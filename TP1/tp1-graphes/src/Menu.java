@@ -62,10 +62,17 @@ public class Menu {
 		Scanner s = new Scanner(System.in);
 		String choixEntre = s.nextLine();
 		int choix = Integer.parseInt("0" + choixEntre.replaceAll("\\D+",""));
+		Ville ville = carte.GetVilleById(choix);
+		
+		if(ville == null) {
+			System.out.println("Erreur: choix invalide");
+			System.out.println();
+			AfficherSelectionVille(fin);
+		}
 		
 		// Gérer les cas d'erreurs et exceptions (mauvais type)
 		// False - temporaire
-		return new Ville(choix, false);
+		return ville;
 	}
 	
 	/**
