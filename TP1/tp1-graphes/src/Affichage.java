@@ -1,14 +1,22 @@
+/**
+ * Interface Affichage
+ * 
+ * Samuel D'Amours-Fortier, Justine Lambert et Julie Rousseau
+ * LOG2810 : Structures discrÃ¨tes
+ * 
+ **/
+
 
 public interface Affichage {
 	/**
-	 * Méthode AfficherSurCarte
-	 * @return une chaine de caractère pour afficher les éléments d'une carte
+	 * Mï¿½thode AfficherSurCarte
+	 * @return une chaine de caractï¿½re pour afficher les ï¿½lï¿½ments d'une carte
 	 */
 	public String AfficherSurCarte();
 	
 	/**
-	 * Méthode AfficherChemin
-	 * @return une chaine de caractère pour afficher les informations d'un chemin
+	 * Mï¿½thode AfficherChemin
+	 * @return une chaine de caractï¿½re pour afficher les informations d'un chemin
 	 */
 	public String AfficherChemin();
 }

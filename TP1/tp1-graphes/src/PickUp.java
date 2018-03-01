@@ -1,9 +1,13 @@
 /**
  * Classe PickUp
  * 
- * Permet de définir les propriétés pour un PickUp
+ * Samuel D'Amours-Fortier, Justine Lambert et Julie Rousseau
+ * LOG2810 : Structures discrÃ¨tes
+ * 
+ * Permet de dï¿½finir les propriï¿½tï¿½s pour un PickUp
  *
  */
+
 public class PickUp extends Vehicule {
 
 	public PickUp(Compagnie cie, int qte) {
