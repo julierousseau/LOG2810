@@ -56,8 +56,8 @@ public class Carte {
 			villeActuelle.SetStatutVisitee(true);
 			villeActuelle = TrouverProchaineVille(arrivee);
 		}
-		if(arrivee.GetPrecedente() == null && vehicule.GetCompagnie() == CheapCar) {
-			vehicule.SetCompagnie(SuperCar);
+		if(arrivee.GetPrecedente() == null && vehicule.GetCompagnie().getClass().getName() == "CheapCar") {
+			vehicule.SetCompagnie(new SuperCar());
 			PlusCourtChemin(vehicule, depart, arrivee);
 			return;
 		}
@@ -68,8 +68,8 @@ public class Carte {
 		int tempsParcours = CalculerTemps(plusCourtChemin, vehicule);
 		
 		if (tempsParcours == -1)
-			if(vehicule.GetCompagnie() == CheapCar) {
-				vehicule.SetCompagnie(SuperCar);
+			if(vehicule.GetCompagnie().getClass().getName() == "CheapCar") {
+				vehicule.SetCompagnie(new SuperCar());
 				PlusCourtChemin(vehicule, depart, arrivee);
 				return;
 			}
