@@ -62,10 +62,9 @@ public class Carte {
 	 * @param arrivee: Ville d'arrivï¿½e
 	 */
 	public void PlusCourtChemin(Vehicule vehicule,Ville depart, Ville arrivee) {
-		ArrayList<Ville> plusCourtChemin = new ArrayList<Ville>();
-		
 		// TODO: Gï¿½rer les chemins alternatifs pour l'essence
 		InitDistance();
+		ArrayList<Ville> plusCourtChemin = new ArrayList<Ville>();
 		plusCourtChemin = CalculerChemin(depart, arrivee);
 		if(plusCourtChemin.isEmpty() && vehicule.GetCompagnie() instanceof CheapCar) {
 			vehicule.SetCompagnie(new SuperCar());
@@ -93,9 +92,7 @@ public class Carte {
 		debut.SetTempsTotal(0);
 		Ville villeActuelle = debut;
 		while(villeActuelle != fin) {
-			Iterator<Route> itr = villeActuelle.GetRoutes().iterator();
-			while(itr.hasNext()) {
-				Route currentRoute = itr.next();
+			for(Route currentRoute : villeActuelle.GetRoutes()) {
 				Ville villeSuivante = currentRoute.GetDestination();
 				int oldTemps = villeSuivante.GetTempsTotal();
 				int newTemps = villeActuelle.GetTempsTotal() + currentRoute.GetTemps();
@@ -117,6 +114,14 @@ public class Carte {
 		}
 		return plusCourtChemin;
 	}
+	
+	/**
+	 * Méthode CheminAlternatif
+	 * @param debut: ville d'origine
+	 * @param fin: ville d'arrivee
+	 * @return: la liste des villes du plus court chemin
+	 */
+	private ArrayList
 	
 	/**
 	 * Mï¿½thode AfficherChemin
@@ -162,9 +167,7 @@ public class Carte {
 	 */
 	private Ville TrouverProchaineVille(Ville finale) {
 		Ville prochaine = finale;
-		Iterator<Ville> itr = villes.iterator();
-		while(itr.hasNext()) {
-			Ville comp = itr.next();
+		for(Ville comp : villes) {
 			if(!comp.GetStatutVisitee() && comp.GetTempsTotal() < prochaine.GetTempsTotal())
 				prochaine = comp;
 		}
@@ -186,7 +189,7 @@ public class Carte {
 			Route routeCourante = itrr.next();				
 			while(routeCourante.GetDestination() != villes.get(i+1))
 				routeCourante = itrr.next();
-			if(villeCourante.EstStationService()) {
+			if(villeCourante.EstStationService() && i != 0) {
 				temps += 15;
 				vehicule.SetQuantiteEssence(100);
 			}
