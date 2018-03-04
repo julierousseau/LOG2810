@@ -109,15 +109,18 @@ public class Carte {
 					}
 				}
 			}
-			if(!panneSeche) {
+			if(!panneSeche) 
 				villeActuelle.SetStatutVisitee(true);
-				villeActuelle = TrouverProchaineVille(fin);
+			else if(!villeActuelle.GetPanneEssence()) {
+				for(Route route:villeActuelle.GetRoutes()) {
+					if(route.GetDestination() != villeActuelle.GetPrecedente() && route.GetDestination().GetStatutVisitee())
+						route.GetDestination().SetStatutVisitee(false);
+				}
+				villeActuelle.GetPrecedente().SetTempsTotal(Integer.MAX_VALUE);
+				villeActuelle.GetPrecedente().SetStatutVisitee(false);
+				villeActuelle.SetPanneEssence();
 			}
-			else if(!villeActuelle.GetTestEssence()) {
-				villeActuelle.SetTempsTotal(Integer.MAX_VALUE);
-				villeActuelle.SetPrecedente(null);
-				villeActuelle.SetTestEssence();
-			}
+			villeActuelle = TrouverProchaineVille(fin);
 		}
 		
 		return ConstruireChemin(villeActuelle);

@@ -18,7 +18,7 @@ public class Ville implements Affichage {
 	private int temps;
 	private boolean estVisitee;
 	private Ville precedente;
-	private boolean testeeEssence = false; 
+	private boolean panneEssence = false; 
 	
 	public Ville(int id, boolean stationService) {
 		this.id = id;
@@ -132,18 +132,18 @@ public class Ville implements Affichage {
 	}
 	
 	/**
-	 * Méthode GetTestEssence
+	 * Méthode GetPanneEssence
 	 * @return: si la ville a déja été testé pour un parcours d'essence
 	 */
-	public boolean GetTestEssence() {
-		return testeeEssence;
+	public boolean GetPanneEssence() {
+		return panneEssence;
 	}
 	
 	/**
-	 * Méthode SetTestEssence
+	 * Méthode SetPanneEssence
 	 */
-	public void SetTestEssence() {
-		this.testeeEssence = true;
+	public void SetPanneEssence() {
+		this.panneEssence = true;
 	}
 }
 
