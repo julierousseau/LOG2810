@@ -72,6 +72,8 @@ public class Carte {
 			if(plusCourtChemin.isEmpty()) {
 				vehicule.SetCompagnie(new SuperCar());
 				plusCourtChemin = CalculerChemin(depart, arrivee, vehicule);
+				if(plusCourtChemin.isEmpty())
+					plusCourtChemin = CheminEconomique(depart, arrivee, vehicule);
 				}
 		}
 		
