@@ -65,22 +65,19 @@ public class Carte {
 	 * @param arrivee: Ville d'arrivï¿½e
 	 */
 	public void PlusCourtChemin(Vehicule vehicule,Ville depart, Ville arrivee) {
-		InitDistance();
 		ArrayList<Ville> plusCourtChemin = new ArrayList<Ville>();
 		plusCourtChemin = CalculerChemin(depart, arrivee, vehicule);
 		if(plusCourtChemin.isEmpty() && vehicule.GetCompagnie() instanceof CheapCar) {
-			vehicule.SetCompagnie(new SuperCar());
-			PlusCourtChemin(vehicule, depart, arrivee);
-			return;
+			plusCourtChemin = CheminEconomique(depart, arrivee, vehicule);
+			if(plusCourtChemin.isEmpty()) {
+				vehicule.SetCompagnie(new SuperCar());
+				plusCourtChemin = CalculerChemin(depart, arrivee, vehicule);
+				if(plusCourtChemin.isEmpty())
+					plusCourtChemin = CheminEconomique(depart, arrivee, vehicule);
+				}
 		}
 		
 		int tempsParcours = CalculerTemps(plusCourtChemin, vehicule);
-		if (tempsParcours == -1)
-			if(vehicule.GetCompagnie() instanceof CheapCar) {
-				vehicule.SetCompagnie(new SuperCar());
-				PlusCourtChemin(vehicule, depart, arrivee);
-				return;
-			}
 		AfficherChemin(tempsParcours, plusCourtChemin, vehicule);
 	}
 	
@@ -91,29 +88,62 @@ public class Carte {
 	 * @return: la liste des villes du plus court chemin
 	 */
 	private ArrayList<Ville> CalculerChemin(Ville debut, Ville fin, Vehicule vehicule){
+		InitDistance();
 		debut.SetTempsTotal(0);
 		Ville villeActuelle = debut;
 		while(villeActuelle != fin) {
-			CalculerTemps(ConstruireChemin(villeActuelle), vehicule);
+			CalculerEssence(ConstruireChemin(villeActuelle), vehicule);
 			if(villeActuelle.EstStationService())
 				vehicule.SetQuantiteEssence(100);
 			for(Route currentRoute : villeActuelle.GetRoutes()) {
 				Ville villeSuivante = currentRoute.GetDestination();
-				int oldTemps = villeSuivante.GetTempsTotal();
-				int newTemps = villeActuelle.GetTempsTotal() + currentRoute.GetTemps();
-				if(newTemps < oldTemps && vehicule.GetTempsRestant() > currentRoute.GetTemps()) {
-					villeSuivante.SetTempsTotal(newTemps);
-					villeSuivante.SetPrecedente(villeActuelle);
+				if(!villeSuivante.GetStatutVisitee()) {
+					int oldTemps = villeSuivante.GetTempsTotal();
+					int newTemps = villeActuelle.GetTempsTotal() + currentRoute.GetTemps();
+					if(newTemps < oldTemps && vehicule.GetTempsRestant() > currentRoute.GetTemps()) {
+						villeSuivante.SetTempsTotal(newTemps);
+						villeSuivante.SetPrecedente(villeActuelle);
+					}
 				}
 			}
 			villeActuelle.SetStatutVisitee(true);
 			villeActuelle = TrouverProchaineVille(fin);
 		}
 		
-		ArrayList<Ville> plusCourtChemin = ConstruireChemin(villeActuelle);
-		return plusCourtChemin;
+		return ConstruireChemin(villeActuelle);
 	}
 
+	/**
+	 * Méthode CheminEconomique
+	 * @param debut: ville d'origine
+	 * @param fin: ville d'arrivee
+	 * @return: la liste des villes selon l'essence comme critère principal
+	 */
+	private ArrayList<Ville> CheminEconomique(Ville debut, Ville fin, Vehicule vehicule){
+		InitDistance();
+		debut.SetTempsTotal(0);
+		Ville villeActuelle = debut;
+		while(villeActuelle != fin) {
+			for(Route currentRoute : villeActuelle.GetRoutes()) {
+				Ville villeSuivante = currentRoute.GetDestination();
+				if(!villeSuivante.GetStatutVisitee()) {
+					int newTemps = villeActuelle.GetTempsTotal() + currentRoute.GetTemps();
+					int oldEssence = CalculerEssence(ConstruireChemin(villeSuivante),vehicule);
+					Ville oldPrecedente = villeSuivante.GetPrecedente();
+					villeSuivante.SetPrecedente(villeActuelle);
+					if(CalculerEssence(ConstruireChemin(villeSuivante),vehicule) > oldEssence)
+						villeSuivante.SetTempsTotal(newTemps);
+					else
+						villeSuivante.SetPrecedente(oldPrecedente);
+				}
+			}
+			villeActuelle.SetStatutVisitee(true);
+			villeActuelle = TrouverProchaineVille(fin);
+		}
+		
+		return ConstruireChemin(villeActuelle);
+	}
+	
 	/**
 	 * Méthode ConstruireChemin
 	 * @param ville: ville vers laquelle on veut construire le chemin
@@ -149,6 +179,7 @@ public class Carte {
 		if(chaine != "" && chaine.charAt(chaine.length() - 1) == '>')
 			chaine = chaine.substring(0, chaine.length() - 3);
 
+		CalculerEssence(chemin, vehicule);
 		chaine += " \nDurée du trajet: " + tempsParcours + " minutes. \nEssence restante: " + vehicule.GetQuantiteEssence() + "%.";
 		
 		System.out.println(chaine);
@@ -199,12 +230,33 @@ public class Carte {
 				routeCourante = itrr.next();
 			if(villeCourante.EstStationService() && i != 0) {
 				temps += 15;
+			}
+			temps += routeCourante.GetTemps()*60;
+		}
+		return temps;
+	}
+	
+	/**
+	 * Méthode CalculerEssence
+	 * @param chemin: le chemin à parcourir
+	 * @return: la quantité d'essence restance
+	 */
+	private int CalculerEssence(ArrayList<Ville> villes, Vehicule vehicule) {
+		vehicule.SetQuantiteEssence(100);
+		if(villes.isEmpty())
+			return -1;
+		for (int i = 0; i < villes.size()-1; i++) {
+			Ville villeCourante = villes.get(i);
+			Iterator<Route> itrr = villeCourante.GetRoutes().iterator();
+			Route routeCourante = itrr.next();				
+			while(routeCourante.GetDestination() != villes.get(i+1))
+				routeCourante = itrr.next();
+			if(villeCourante.EstStationService() && i != 0) {
 				vehicule.SetQuantiteEssence(100);
 			}
 			if(!vehicule.ConsommerEssence(routeCourante.GetTemps()))
 				return -1;
-			temps += routeCourante.GetTemps()*60;
-		}
-		return temps;
+			}
+		return vehicule.GetQuantiteEssence();
 	}
 }
