@@ -12,7 +12,13 @@ public class Regle extends AbstractRegle {
 
 	@Override
 	void Valider(Variante variante) {
-		// TODO Auto-generated method stub
-		
+		if(variante.GetValeur().charAt(index) == valeur) {
+			AbstractRegle prochaine = null;
+			for(int i = 0; i < suivants.size(); i++) {
+				prochaine = suivants.get(i);
+				prochaine.index = this.index + 1;
+				prochaine.Valider(variante);
+			}
+		}
 	}
 }

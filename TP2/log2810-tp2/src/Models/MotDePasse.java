@@ -2,10 +2,14 @@ package Models;
 
 public class MotDePasse extends AbstractRegle {
 
-	@Override
-	void Valider(Variante variante) {
-		// TODO Auto-generated method stub
-
+	public MotDePasse(char valeur) {
+		super(valeur);
 	}
 
+	@Override
+	void Valider(Variante variante) {
+		if(variante.GetValeur().charAt(index) == valeur) {
+			variante.SetValide(true);
+		}
+	}
 }
