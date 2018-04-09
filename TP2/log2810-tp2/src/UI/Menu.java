@@ -45,10 +45,19 @@ public class Menu {
 	 */
 	private String TrouverMotDePasse(ArrayList<Variante> variantes, Automate automate) {
 		
-		String motDePasseTrouve = "coucou";
-		return motDePasseTrouve;
+		String motDePasseTrouve = "";
 		
-		// TO DO
+		// La variante valide est mise à true
+		automate.comparer(variantes);
+		
+		// Recherche du mot de passe valide parmi 
+		// les variantes comparées
+		for ( Variante v : variantes) {
+			if (v.GetValide() == true)
+				motDePasseTrouve = v.GetValeur();
+		}
+		
+		return motDePasseTrouve;
 		
 	}
 	
