@@ -10,6 +10,13 @@ public class Regle extends AbstractRegle {
 		suivants = new ArrayList<AbstractRegle>();
 	}
 
+	public void addSuivante(char valeur) {
+		suivants.add(new Regle(valeur));
+	}
+	public void addMotDePasse(char valeur) {
+		suivants.add(new MotDePasse(valeur));
+	}
+	
 	@Override
 	void Valider(Variante variante) {
 		if(variante.GetValeur().charAt(index) == valeur) {
