@@ -5,16 +5,37 @@ import java.util.ArrayList;
 public class Regle extends AbstractRegle {
 	private ArrayList<AbstractRegle> suivants;
 	
-	public Regle(char valeur) {
-		super(valeur);
+	public Regle(char valeur, int index) {
+		super(valeur, index);
 		suivants = new ArrayList<AbstractRegle>();
 	}
-
-	public void addSuivante(char valeur) {
-		suivants.add(new Regle(valeur));
+	
+	public Regle(MotDePasse nouvelle) {
+		super(nouvelle.valeur, nouvelle.index);
+		suivants = new ArrayList<AbstractRegle>();
+		parent = nouvelle.parent;
 	}
-	public void addMotDePasse(char valeur) {
-		suivants.add(new MotDePasse(valeur));
+	
+	public ArrayList<AbstractRegle> getSuivants(){
+		return suivants;
+	}
+	
+	@Override
+	public void addSuivante(AbstractRegle suivante) {
+		suivants.add(suivante);
+		suivante.parent = this;
+	}
+	
+	@Override
+	public AbstractRegle trouverRegle(String primitive) {
+		if (primitive.charAt(index) != valeur)
+			return null;
+		if (suivants.isEmpty())
+			return this;
+		for (int i = 0 ; i < suivants.size(); i++)
+			if(suivants.get(i).trouverRegle(primitive) != null)
+				return suivants.get(i).trouverRegle(primitive);
+		return null;
 	}
 	
 	@Override
@@ -23,7 +44,6 @@ public class Regle extends AbstractRegle {
 			AbstractRegle prochaine = null;
 			for(int i = 0; i < suivants.size(); i++) {
 				prochaine = suivants.get(i);
-				prochaine.index = this.index + 1;
 				prochaine.Valider(variante);
 			}
 		}
