@@ -87,7 +87,7 @@ public class Menu {
 		String idAutomateCherche = variantesTraitees.get(0).GetIdAutomate();
 		Automate automateAssocie = null;
 		for ( Automate aut : automates) {
-			if (idAutomateCherche == aut.getId())
+			if (idAutomateCherche.equals(aut.getId()))
 				automateAssocie = aut;
 		}
 		

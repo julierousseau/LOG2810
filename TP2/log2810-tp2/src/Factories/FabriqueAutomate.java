@@ -37,9 +37,9 @@ public class FabriqueAutomate {
 				System.out.println("L'automate a ete cree.");
 				System.out.println();
 
-			} catch (IOException e) {
+			} catch (Exception e) {
 				// Echec de la lecture
-				System.out.println("Erreur: le fichier n'a pas ete trouve.");
+				System.out.println("Erreur: fichier invalide.");
 				System.out.println();
 				automate = null;
 			}

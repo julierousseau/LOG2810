@@ -29,10 +29,10 @@ import Models.Variante;
 			System.out.println("Les entrees ont ete traitees.");
 			System.out.println();
 
-		} catch (IOException e) {
+		} catch (Exception e) {
 			
 			// Échec de la lecture
-			System.out.println("Erreur: le fichier n'a pas ete trouve.");
+			System.out.println("Erreur: fichier invalide.");
 			System.out.println();
 			variantes = null;
 		}

@@ -28,13 +28,18 @@ public class Regle extends AbstractRegle {
 	
 	@Override
 	public AbstractRegle trouverRegle(String primitive) {
-		if (primitive.charAt(index) != valeur)
+		if (primitive.length() > index && primitive.charAt(index) != valeur)
 			return null;
-		if (suivants.isEmpty())
+		if (suivants.isEmpty() || (primitive.length() == index+1 && primitive.charAt(index) == valeur))
 			return this;
-		for (int i = 0 ; i < suivants.size(); i++)
-			if(suivants.get(i).trouverRegle(primitive) != null)
-				return suivants.get(i).trouverRegle(primitive);
+		if (primitive.length() == index)
+			return null;
+		AbstractRegle regle;
+		for (int i = 0 ; i < suivants.size(); i++){
+			regle = suivants.get(i).trouverRegle(primitive);
+			if(regle != null)
+				return regle;
+		}
 		return null;
 	}
 	

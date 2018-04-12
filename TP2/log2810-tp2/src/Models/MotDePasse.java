@@ -23,7 +23,7 @@ public class MotDePasse extends AbstractRegle {
 
 	@Override
 	public AbstractRegle trouverRegle(String primitive) {
-		if(primitive.charAt(index) == valeur)
+		if(primitive.length() > index && primitive.charAt(index) == valeur)
 			return this;
 		return null;
 	}
