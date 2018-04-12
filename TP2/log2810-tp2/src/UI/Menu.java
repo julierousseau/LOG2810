@@ -35,8 +35,8 @@ public class Menu {
 		FabriqueAutomate fabrique = new FabriqueAutomate();
 		
 		// Cr�e et ajoute l'automate � la liste
-		Automate nouvelAutomate = fabrique.CreerAutomate(nomFichier);
-		automates.add(automate);
+		Automate nouvelAutomate = fabrique.creerAutomate(nomFichier);
+		automates.add(nouvelAutomate);
 	}
 	
 	
@@ -85,7 +85,7 @@ public class Menu {
 		String idAutomateCherche = variantesTraitees.get(0).GetIdAutomate();
 		Automate automateAssocie = null;
 		for ( Automate aut : automates) {
-			if (idAutomateCherche == aut.GetId())
+			if (idAutomateCherche == aut.getId())
 				automateAssocie = aut;
 		}
 		
