@@ -7,6 +7,9 @@ public class Automate{
 	private String id;
 	private Regle premiereRegle;
 	
+	public Automate() {
+	}
+	
 	public Automate(String id, Regle premiereRegle) {
 		this.id = id;
 		this.premiereRegle = premiereRegle;
