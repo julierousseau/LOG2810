@@ -10,8 +10,12 @@ public abstract class AbstractRegle {
 		this.index = index;
 	}
 	
-	abstract void addSuivante(AbstractRegle regle);
-	abstract void Valider(Variante variante);
-	abstract AbstractRegle trouverRegle(String primitive);
+	public int getIndex() {
+		return index;
+	}
+	
+	public abstract void addSuivante(AbstractRegle regle);
+	public abstract void Valider(Variante variante);
+	public abstract AbstractRegle trouverRegle(String primitive);
 
 }

@@ -1,8 +1,13 @@
-package Models;
+package Factories;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
+
+import Models.AbstractRegle;
+import Models.Automate;
+import Models.MotDePasse;
+import Models.Regle;
 
 public class FabriqueAutomate {
 	 
@@ -22,7 +27,7 @@ public class FabriqueAutomate {
 				while ((str = lecture.readLine()) != null) {
 					tmp = str.split("=");
 					AbstractRegle r = S.trouverRegle(tmp[0].substring(1));
-					r.addSuivante(new MotDePasse(tmp[1].charAt(tmp[1].length()-1), r.index + 1));
+					r.addSuivante(new MotDePasse(tmp[1].charAt(tmp[1].length()-1), r.getIndex() + 1));
 				}
 				
 				// On cree l'automate

@@ -1,11 +1,13 @@
 package UI;
 
 import java.util.Scanner;
+
+import Factories.FabriqueAutomate;
+import Factories.FabriqueVariante;
+
 import java.util.ArrayList;
 import Models.Variante;
-import Models.FabriqueVariante;
 import Models.Automate;
-import Models.FabriqueAutomate;
 
 public class Menu {
 

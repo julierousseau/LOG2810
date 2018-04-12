@@ -7,14 +7,14 @@ public class MotDePasse extends AbstractRegle {
 	}
 
 	@Override
-	void Valider(Variante variante) {
+	public void Valider(Variante variante) {
 		if(variante.GetValeur().charAt(index) == valeur) {
 			variante.SetValide(true);
 		}
 	}
 
 	@Override
-	void addSuivante(AbstractRegle suivante) {
+	public void addSuivante(AbstractRegle suivante) {
 		Regle nouvelle = new Regle(this);
 		this.parent.addSuivante(nouvelle);
 		this.parent.getSuivants().remove(this);
@@ -22,7 +22,7 @@ public class MotDePasse extends AbstractRegle {
 	}
 
 	@Override
-	AbstractRegle trouverRegle(String primitive) {
+	public AbstractRegle trouverRegle(String primitive) {
 		if(primitive.charAt(index) == valeur)
 			return this;
 		return null;
