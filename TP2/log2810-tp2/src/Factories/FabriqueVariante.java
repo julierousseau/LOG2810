@@ -2,7 +2,6 @@ package Factories;
  
 import java.io.BufferedReader;
 import java.io.FileReader;
-import java.io.IOException;
 import java.util.ArrayList;
 
 import Models.Variante;
@@ -10,6 +9,9 @@ import Models.Variante;
 
  public class FabriqueVariante {
 	 
+	 /**
+	  * Methode TraiterLesEntrees
+	 */
 	 public ArrayList<Variante> TraiterLesEntrees(String nomFichier) {
 		 
 		 ArrayList<Variante> variantes = new ArrayList<Variante>();
@@ -26,7 +28,7 @@ import Models.Variante;
 			}
 			
 			// Réussite de la lecture
-			System.out.println("Les entrees ont ete traitees.");
+			System.out.println("Les variantes ont ete lues.");
 			System.out.println();
 
 		} catch (Exception e) {
@@ -40,4 +42,4 @@ import Models.Variante;
 		 return variantes;
 	 }
 		 
- }
+}

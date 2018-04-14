@@ -38,7 +38,8 @@ public class Menu {
 		
 		// Cr�e et ajoute l'automate � la liste
 		Automate nouvelAutomate = fabrique.creerAutomate(nomFichier);
-		automates.add(nouvelAutomate);
+		if (nouvelAutomate != null)
+			automates.add(nouvelAutomate);
 	}
 	
 	
@@ -69,35 +70,41 @@ public class Menu {
 	 */
 	private void TraiterRequetes() {
 		
-		System.out.println( "Entrez le nom du fichier de variantes desire:" );
-		System.out.println();
-
-		String nomFichier = s.nextLine();
-		
-		FabriqueVariante fabrique = new FabriqueVariante();
-		
-		// Obtient les variantes trait�es
-		ArrayList<Variante> variantesTraitees = fabrique.TraiterLesEntrees(nomFichier);
-		
-		// Les ajoute � la liste
-		for ( Variante v : variantesTraitees )
-			variantes.add(v);
+		try {
+			System.out.println( "Entrez le nom du fichier de variantes desire:" );
+			System.out.println();
 	
-		// Trouve l'automate � utiliser
-		String idAutomateCherche = variantesTraitees.get(0).GetIdAutomate();
-		Automate automateAssocie = null;
-		for ( Automate aut : automates) {
-			if (idAutomateCherche.equals(aut.getId()))
-				automateAssocie = aut;
+			String nomFichier = s.nextLine();
+			
+			FabriqueVariante fabrique = new FabriqueVariante();
+			
+			// Obtient les variantes trait�es
+			ArrayList<Variante> variantesTraitees = fabrique.TraiterLesEntrees(nomFichier);
+			
+			// Les ajoute � la liste
+			for ( Variante v : variantesTraitees )
+				variantes.add(v);
+		
+			// Trouve l'automate � utiliser
+			String idAutomateCherche = variantesTraitees.get(0).GetIdAutomate();
+			Automate automateAssocie = null;
+			for ( Automate aut : automates) {
+				if (idAutomateCherche.equals(aut.getId()))
+					automateAssocie = aut;
+			}
+			
+			// Recherche un mot de passe parmi les variantes trait�es
+			String motDePasseTrouve = TrouverMotDePasse(variantesTraitees, automateAssocie);
+			
+			// Affiche le mot de passe trouv�
+			System.out.println( "Resultat de la requete: " );
+			System.out.println( "Le mot de passe " + motDePasseTrouve + " a ete trouve." );
+			System.out.println();
 		}
-		
-		// Recherche un mot de passe parmi les variantes trait�es
-		String motDePasseTrouve = TrouverMotDePasse(variantesTraitees, automateAssocie);
-		
-		// Affiche le mot de passe trouv�
-		System.out.println( "Resultat de la requete: " );
-		System.out.println( "Le mot de passe " + motDePasseTrouve + " a ete trouve." );
-		System.out.println();
+		catch (NullPointerException e) {
+			System.out.println( "Erreur: automate invalide." );
+			System.out.println();
+		}
 	}
 	
 	
@@ -106,12 +113,18 @@ public class Menu {
 	 */
 	private void AfficherMotsDePasse() {
 		
-		System.out.println( "Mots de passe valides obtenus jusqu'� pr�sent: " );
-		System.out.println();
-		
-		for (Variante v : variantes) {
-			if (v.GetValide())
-				System.out.println(v.GetValeur() + " avec l'automate " + v.GetIdAutomate());
+		if (!variantes.isEmpty()) {
+			System.out.println( "Mots de passe valides obtenus jusqu'a present: " );
+			System.out.println();
+			
+			for (Variante v : variantes) {
+				if (v.GetValide())
+					System.out.println(v.GetValeur() + " avec l'automate " + v.GetIdAutomate());
+			}
+		}
+		else {
+			System.out.println( "Aucun mot de passe valide obtenu." );
+			System.out.println();
 		}
 	}
 	
