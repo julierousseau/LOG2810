@@ -97,9 +97,15 @@ public class Menu {
 			String motDePasseTrouve = TrouverMotDePasse(variantesTraitees, automateAssocie);
 			
 			// Affiche le mot de passe trouv�
-			System.out.println( "Resultat de la requete: " );
-			System.out.println( "Le mot de passe " + motDePasseTrouve + " a ete trouve." );
-			System.out.println();
+			if (motDePasseTrouve != "") {
+				System.out.println( "Resultat de la requete: " );
+				System.out.println( "Le mot de passe " + motDePasseTrouve + " a ete trouve." );
+				System.out.println();
+			}
+			else {
+				System.out.println( "Aucun mot de passe n'a ete trouve." );
+				System.out.println();
+			}
 		}
 		catch (NullPointerException e) {
 			System.out.println( "Erreur: automate invalide." );
