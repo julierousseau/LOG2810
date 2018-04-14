@@ -38,8 +38,7 @@ public class Menu {
 		
 		// Cr�e et ajoute l'automate � la liste
 		Automate nouvelAutomate = fabrique.creerAutomate(nomFichier);
-		if (nouvelAutomate != null)
-			automates.add(nouvelAutomate);
+		automates.add(nouvelAutomate);
 	}
 	
 	
@@ -84,7 +83,7 @@ public class Menu {
 			// Les ajoute � la liste
 			for ( Variante v : variantesTraitees )
 				variantes.add(v);
-		
+
 			// Trouve l'automate � utiliser
 			String idAutomateCherche = variantesTraitees.get(0).GetIdAutomate();
 			Automate automateAssocie = null;
@@ -120,18 +119,25 @@ public class Menu {
 	private void AfficherMotsDePasse() {
 		
 		if (!variantes.isEmpty()) {
+			
 			System.out.println( "Mots de passe valides obtenus jusqu'a present: " );
 			System.out.println();
 			
+			ArrayList<String> idTraites = new ArrayList<String>();
 			for (Variante v : variantes) {
-				if (v.GetValide())
-					System.out.println(v.GetValeur() + " avec l'automate " + v.GetIdAutomate());
+				
+				// On affiche le mot de passe et l'automate associé si ce n'est pas déjà fait
+				if ( v.GetValide() && !idTraites.contains(v.GetIdAutomate()) ) {
+						idTraites.add(v.GetIdAutomate());
+						System.out.println(v.GetValeur() + " avec l'automate " + v.GetIdAutomate());
+					}
+				}
 			}
-		}
+			
 		else {
 			System.out.println( "Aucun mot de passe valide obtenu." );
 			System.out.println();
-		}
+		}		
 	}
 	
 	
