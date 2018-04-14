@@ -19,14 +19,15 @@ public class FabriqueAutomate {
 				String idAutomate = lecture.readLine();
 				
 				// On cree la premiere regle
-				String str = lecture.readLine().split("=")[1];
-				Regle S = new Regle(str.charAt(1), 0);
+				//String str = lecture.readLine().split("=")[1];
+				Regle S = new Regle('S', 0);
 				
 				// On lit les regle suivantes
+				String str;
 				String [] tmp;
 				while ((str = lecture.readLine()) != null) {
 					tmp = str.split("=");
-					AbstractRegle r = S.trouverRegle(tmp[0].substring(1));
+					AbstractRegle r = S.trouverRegle(tmp[0].substring(0));
 					r.addSuivante(new MotDePasse(tmp[1].charAt(tmp[1].length()-1), r.getIndex() + 1));
 				}
 				
@@ -37,7 +38,7 @@ public class FabriqueAutomate {
 				System.out.println("L'automate a ete cree.");
 				System.out.println();
 
-			} catch (Exception e) {
+			} catch (IOException e) {
 				// Echec de la lecture
 				System.out.println("Erreur: fichier invalide.");
 				System.out.println();
