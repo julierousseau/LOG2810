@@ -45,7 +45,7 @@ public class Regle extends AbstractRegle {
 	
 	@Override
 	public void Valider(Variante variante) {
-		if(variante.GetValeur().charAt(index) == valeur) {
+		if(index == 0 || variante.GetValeur().charAt(index -1) == valeur) {
 			AbstractRegle prochaine = null;
 			for(int i = 0; i < suivants.size(); i++) {
 				prochaine = suivants.get(i);

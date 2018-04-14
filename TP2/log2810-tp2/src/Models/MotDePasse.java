@@ -8,7 +8,7 @@ public class MotDePasse extends AbstractRegle {
 
 	@Override
 	public void Valider(Variante variante) {
-		if(variante.GetValeur().charAt(index) == valeur) {
+		if(variante.GetValeur().charAt(index - 1) == valeur) {
 			variante.SetValide(true);
 		}
 	}
