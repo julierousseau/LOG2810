@@ -2,6 +2,7 @@ package Factories;
  
 import java.io.BufferedReader;
 import java.io.FileReader;
+import java.io.IOException;
 import java.util.ArrayList;
 
 import Models.Variante;
@@ -31,9 +32,13 @@ import Models.Variante;
 			System.out.println("Les variantes ont ete lues.");
 			System.out.println();
 
-		} catch (Exception e) {
-			
-			// Ã‰chec de la lecture
+		}catch (IOException e) {
+				// Echec de la lecture
+				System.out.println("Erreur: Le fichier n'a pas pu être lu.");
+				System.out.println();
+				variantes = null;
+		}catch (Exception e) {
+			// Echec de l'interpretation
 			System.out.println("Erreur: fichier invalide.");
 			System.out.println();
 			variantes = null;

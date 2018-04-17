@@ -38,11 +38,14 @@ public class FabriqueAutomate {
 				System.out.println("L'automate a ete cree.");
 				System.out.println();
 
-			} catch (Exception e) {
+			}catch (IOException e) {
 				// Echec de la lecture
+				System.out.println("Erreur: Le fichier n'a pas pu être lu.");
+				System.out.println();
+			}catch (Exception e) {
+				// Echec de l'interpretation
 				System.out.println("Erreur: fichier invalide.");
 				System.out.println();
-				automate = null;
 			}
 		 return automate;
 	 }
